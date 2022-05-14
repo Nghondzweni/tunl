@@ -2,6 +2,7 @@ version: '3'
 
 services:
   api:
+    container_name: api
     image: variablecarp571/tunl_assessment_api
     build: .
     command: "yarn dev"
@@ -24,6 +25,7 @@ services:
     networks:
       - app-network
   mongo:
+    container_name: mongo
     image: "mongo"
     ports:
       - "27017:27017"
