@@ -9,7 +9,24 @@ services:
       - "3001:3001"
     depends_on:
       - mongo
+      - app-network
+  proxy:
+    image: nginx:alpine
+    container_name: web-proxy
+    restart: unless-stopped
+    volumes:
+      - ./proxy.conf:/etc/nginx.conf/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - api
+    networks:
+      - app-network
   mongo:
     image: "mongo"
     ports:
       - "27017:27017"
+
+  networks:
+    app-network:
+      driver: bridge
