@@ -9,6 +9,7 @@ services:
       - "3001:3001"
     depends_on:
       - mongo
+    networks:  
       - app-network
   proxy:
     image: nginx:alpine
@@ -27,6 +28,6 @@ services:
     ports:
       - "27017:27017"
 
-  networks:
-    app-network:
-      driver: bridge
+networks:
+  app-network:
+    driver: bridge
