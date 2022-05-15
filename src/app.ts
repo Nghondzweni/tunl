@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(deserializeUser)
 
-app.listen(port, host, () => {
-    log.info(`Serrver listening on at http://${host}:${port}`);
+app.listen(port, () => {
+    log.info(`Server listening on port:${port}`);
 
     connect();
     routes(app);
