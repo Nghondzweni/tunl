@@ -8,6 +8,7 @@ function connect() {
   }).then(() => {
       log.info("Database Connected");
   }).catch((error) => {
+    console.log(error)
       log.error("db error", error);
   });
 }

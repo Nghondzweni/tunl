@@ -3,6 +3,7 @@ version: '3'
 services:
   api:
     container_name: api
+    hostname: api
     image: variablecarp571/tunl_assessment_api
     build: .
     command: "yarn dev"
@@ -13,7 +14,8 @@ services:
     networks:  
       - app-network
   proxy:
-    image: nginx:alpine
+    build:
+      context: ./nginx
     container_name: web-proxy
     restart: unless-stopped
     volumes:
@@ -27,9 +29,13 @@ services:
   mongo:
     container_name: mongo
     image: "mongo"
+    volumes:
+      - ./data:/data/db
     ports:
-      - "27017:27017"
+      - "27018:27017"
+    networks:
+      - app-network
 
 networks:
   app-network:
-    driver: bridge
+    external: true
