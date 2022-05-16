@@ -44,7 +44,7 @@ export default function (app: Express) {
   );
 
   // Get Parcel By Id
-  app.get("/api/parcel", requiresUser, getParcelHandler);
+  app.get("/api/parcels", requiresUser, getParcelHandler);
 
   // Get Parcel Ids belonging to user
   app.get("/api/parcels", requiresUser, getParcelsHandler);
