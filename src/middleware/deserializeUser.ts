@@ -16,10 +16,11 @@ export const deserializeUser = async (
 
   const { decoded, expired, valid } = await decode(accessToken);
   const refreshToken = get(req, "headers.x-refresh");
-  
+
+
   if (expired && refreshToken) {
     const newAccessToken = await reIssueAccessToken({ refreshToken });
-
+    
     if (newAccessToken) {
       // Add the new access token to the response header
       res.setHeader("x-access-token", newAccessToken);
@@ -35,14 +36,13 @@ export const deserializeUser = async (
 
   if (!accessToken) return next();
 
-  
-  if(!valid) return(res.send("Error: Invalid Token"))
-  
-  const session = await Session.findById(get(decoded, 'session'));
-  
-  const validSession = get(session, 'valid');
+  if (!valid) return res.status(401).send("Error: Invalid Token");
 
-  if (!validSession) return(res.send("Error: Session has been destroyed"));
+  const session = await Session.findById(get(decoded, "session"));
+
+  const validSession = get(session, "valid");
+
+  if (!validSession) return res.send("Error: Session has been destroyed");
 
   if (decoded && validSession) {
     // @ts-ignore
@@ -50,7 +50,4 @@ export const deserializeUser = async (
 
     return next();
   }
-
-
-
 };

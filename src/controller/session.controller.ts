@@ -33,7 +33,7 @@ export async function createSessionHandler(req: Request, res: Response) {
 
   // Create refresh token
   const refreshToken = sign(session, {
-    expiresIn: process.env.ACCESSTOKENTTL as string, // 3 Hours
+    expiresIn: process.env.REFRESHTOKENTTL as string, // 10 Days
   });
 
   return res.send({ accessToken, refreshToken });
