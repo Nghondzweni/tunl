@@ -37,14 +37,14 @@ export default function (app: Express) {
 
   // Create New Parcel
   app.post(
-    "/api/parcel",
+    "/api/parcels",
     requiresUser,
     validateRequest(createParcelSchema),
     createParcelHandler
   );
 
   // Get Parcel By Id
-  app.get("/api/parcels", requiresUser, getParcelHandler);
+  app.get("/api/parcel", requiresUser, getParcelHandler);
 
   // Get Parcel Ids belonging to user
   app.get("/api/parcels", requiresUser, getParcelsHandler);
