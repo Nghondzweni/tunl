@@ -11,7 +11,7 @@ export async function createUser(input: DocumentDefinition<UserDocument>) {
 }
 
 export async function findUser(query: FilterQuery<UserDocument>) {
-    return User.findOne(query).lean();
+  return User.findOne(query).lean();
 }
 
 export async function validatePassword({
@@ -20,14 +20,14 @@ export async function validatePassword({
 }: {
   email: UserDocument["email"];
   password: string;
-}){
-    const user = await User.findOne({email});
+}) {
+  const user = await User.findOne({ email });
 
-    if(!user) return false;
+  if (!user) return false;
 
-    const valid = await user.comparePassword(password);
+  const valid = await user.comparePassword(password);
 
-    if(!valid) return false;
+  if (!valid) return false;
 
-    return omit(user.toJSON(), "password")
-};
+  return omit(user.toJSON(), "password");
+}

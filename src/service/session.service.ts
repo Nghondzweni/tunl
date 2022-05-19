@@ -7,7 +7,7 @@ import { findUser } from "./user.service";
 require("dotenv").config();
 
 export async function createSession(userId: string, userAgent: string) {
-  const session = await Session.create({ user: userId, userAgent});
+  const session = await Session.create({ user: userId, userAgent });
   return session.toJSON();
 }
 
@@ -24,7 +24,7 @@ export function createAccessToken({
 }) {
   const accessToken = sign(
     { ...user, session: session._id },
-    { expiresIn: process.env.ACCESSTOKENTTL as string} // The session will expire in 3 Hours
+    { expiresIn: process.env.ACCESSTOKENTTL as string } // The session will expire in 3 Hours
   );
 
   return accessToken;
@@ -48,18 +48,19 @@ export async function reIssueAccessToken({
 
   const user = await findUser({ _id: session.user });
 
-  if(!user) return false
+  if (!user) return false;
 
-  const accessToken = createAccessToken({user, session});
+  const accessToken = createAccessToken({ user, session });
+  return accessToken;
 }
 
 export async function updateSession(
-    query: FilterQuery<SessionDocument>,
-    update: UpdateQuery<SessionDocument>
+  query: FilterQuery<SessionDocument>,
+  update: UpdateQuery<SessionDocument>
 ) {
-    return Session.updateOne(query, update);
+  return Session.updateOne(query, update);
 }
 
-export async function findSessions(query: FilterQuery<SessionDocument>){
-    return Session.find(query).lean();
+export async function findSessions(query: FilterQuery<SessionDocument>) {
+  return Session.find(query).lean();
 }

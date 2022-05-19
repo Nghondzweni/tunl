@@ -5,7 +5,6 @@ import log from "../logger";
 const validate =
   (schema: AnySchema) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body)
     try {
       await schema.validate({
         body: req.body,
@@ -13,11 +12,11 @@ const validate =
         params: req.params,
       });
       return next();
-    } catch(e) {
-        log.error(e);
-        if (e instanceof Error) return res.status(400).send(e.message);
-        else return res.status(400).send(e)
+    } catch (e) {
+      log.error(e);
+      if (e instanceof Error) return res.status(400).send(e.message);
+      else return res.status(400).send(e);
     }
   };
 
-  export default validate;
+export default validate;
